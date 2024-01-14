@@ -16,12 +16,20 @@ async function run() {
     await client.connect();
 
     const jobinfo = client.db('jobinfo').collection('taskinfo');
+    const link = client.db('jobinfo').collection('link');
 
     app.get("/task", async (req, res) => {
       const cursor = jobinfo.find();
       const result = await cursor.toArray();
       res.send(result);
     });
+
+    app.get("/link", async (req, res) => {
+      const cursor = link.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
